@@ -18,6 +18,8 @@ export default {
 <style lang="less" scoped>
 .header {
   width: 100%;
+  background: @light-color;
+  margin-bottom: 20px;
   .nav {
     display: flex;
     justify-content: space-between;
@@ -27,6 +29,11 @@ export default {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+      font-size: 20px;
+      .nav-item a {
+        display: inline-block;
+        padding: 20px;
+      }
     }
   }
 }
