@@ -31,6 +31,7 @@ export default {
       justify-content: flex-end;
       font-size: 20px;
       .nav-item a {
+        color: #000;
         display: inline-block;
         padding: 20px;
       }

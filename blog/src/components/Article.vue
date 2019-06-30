@@ -1,6 +1,6 @@
 <template>
-  <main class="container">
-    <div class="content">
+  <main class="main">
+    <div class="content container">
       <section class="list">
         <article-item
           v-for="(article, key) in articlesList"
@@ -33,11 +33,29 @@ export default {
     }
   },
   mounted () {
-    axios.get('/mock/articles')
-      .then(res => {
-        console.log(res)
-        this.articlesList = res.data
-      })
+    this.getArticles()
+    this.loadMore()
+  },
+  methods: {
+    getArticles: function () {
+      axios.get('/mock/articles')
+        .then(res => {
+          this.articlesList = this.articlesList.concat(res.data)
+        })
+    },
+    loadMore: function () {
+      window.onscroll = () => {
+        // 窗口实际高度
+        let clientHeight = document.documentElement.clientHeight
+        // 文档实际高度
+        let scrollHeight = document.documentElement.scrollHeight
+        // 滚动条下拉高度
+        let scrollTop = document.documentElement.scrollTop
+        if (clientHeight + scrollTop >= scrollHeight * 0.8) {
+          this.getArticles()
+        }
+      }
+    }
   }
 }
 </script>
@@ -45,9 +63,15 @@ export default {
 <style lang="less" scoped>
 .content {
   display: flex;
+  align-items: flex-start;
   .category {
     width: 200px;
     margin-left: 30px;
+    padding:20px;
+    background: @light-color;
+    .cateItem {
+      padding: 0 10px;
+    }
   }
 }
 </style>
